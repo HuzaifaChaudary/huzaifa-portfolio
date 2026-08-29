@@ -5,6 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Huzaifa Iftikhar · Software Engineer</title>
 <meta name="description" content="Software engineer building production web, mobile, and AI systems. 3,000+ active users, $50K+ payments processed, AI live in four industries.">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="theme-color" content="#f5f2ec">
 <style>
 /* ================= Tokens ================= */
 :root {
@@ -179,6 +184,39 @@ section { position: relative; padding: clamp(90px, 14vh, 150px) 0; }
 .job h3 span { color: #8a8175; font-weight: 400; font-size: 15px; }
 .job p { color: #b3aa9c; font-size: 15px; margin-top: 4px; }
 
+/* ================= OPEN SOURCE ================= */
+.oss .col-head h2 { color: var(--ink); }
+.oss .col-head .count { color: var(--ink-soft); }
+.pr {
+  display: grid; grid-template-columns: 190px 1fr; gap: 6px 40px;
+  padding: 26px 0; border-top: 1px solid var(--line); will-change: transform;
+}
+.pr:last-of-type { border-bottom: 1px solid var(--line); }
+@media (max-width: 640px) { .pr { grid-template-columns: 1fr; } }
+.pr-repo { font-family: var(--mono); font-size: 12.5px; color: var(--ink-soft); padding-top: 6px; }
+.pr h3 {
+  font-size: 19px; font-weight: 650; letter-spacing: -0.01em;
+  transition: color var(--dur-fast) var(--ease-out);
+}
+.pr h3 .arrow {
+  display: inline-block; font-size: 15px; color: var(--accent); margin-left: 8px;
+  opacity: 0; translate: -4px 0;
+  transition: opacity var(--dur-fast) var(--ease-out), translate var(--dur-fast) var(--ease-out);
+}
+@media (hover: hover) {
+  .pr:hover h3 { color: var(--accent); }
+  .pr:hover h3 .arrow, .pr:focus-visible h3 .arrow { opacity: 1; translate: 0 0; }
+}
+.pr:focus-visible { outline: 2px solid var(--accent); outline-offset: 6px; }
+.pr p { color: var(--ink-soft); font-size: 15px; margin-top: 6px; max-width: 62ch; }
+.pr code { font-family: var(--mono); font-size: 0.88em; color: var(--ink); }
+.pr-meta { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 12px; }
+.pr-state {
+  font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--accent); border: 1px solid var(--accent); border-radius: 999px; padding: 3px 11px;
+}
+.pr-num { font-family: var(--mono); font-size: 12.5px; color: var(--ink-soft); }
+
 /* ================= SKILLS ================= */
 .ticker { border-block: 1px solid var(--ink); padding: 16px 0; overflow: hidden; display: flex; will-change: transform; }
 .ticker-track {
@@ -262,6 +300,7 @@ footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; g
   .intro-statement .w.accent { color: var(--accent); }
   .xp .spot { display: none; }
   .card { rotate: none; }
+  .pr h3 .arrow { translate: none; }
 }
 </style>
 </head>
@@ -277,6 +316,7 @@ footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; g
     <div class="nav-links">
       <a href="#work">Work</a>
       <a href="#experience">Experience</a>
+      <a href="#open-source">Open Source</a>
       <a href="#skills">Skills</a>
       <a href="#contact">Contact</a>
     </div>
@@ -415,6 +455,36 @@ footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; g
           <p>Responsive booking website with core booking flows.</p>
         </div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ OPEN SOURCE ============ -->
+<section class="oss" id="open-source">
+  <span class="ghost" data-plx="-0.1" aria-hidden="true">Source</span>
+  <div class="wrap cols">
+    <div class="col-head" data-reveal>
+      <span class="label">Open Source</span>
+      <h2>Patches merged into the tools I build on.</h2>
+      <span class="count">Upstream contributions, 2026</span>
+    </div>
+    <div>
+      <a class="pr" href="https://github.com/microsoft/playwright/pull/42449" target="_blank" rel="noopener" data-reveal data-plx="-0.02">
+        <span class="pr-repo">microsoft/playwright</span>
+        <div>
+          <h3>Made the UI Mode filter summary reachable from the keyboard<span class="arrow" aria-hidden="true">&#8599;</span></h3>
+          <p>The filter summary toggled two filter groups but shipped as a <code>div</code> with an <code>onClick</code>: tab skipped it, enter and space did nothing, and screen readers announced a control as plain text. Rebuilt as a native <code>button</code> with <code>aria-expanded</code>, with a regression test.</p>
+          <p class="pr-meta"><span class="pr-state">Merged into main</span><span class="pr-num">PR #42449 &middot; Aug 2026</span></p>
+        </div>
+      </a>
+      <a class="pr" href="https://github.com/langchain-ai/langchain/pull/39978" target="_blank" rel="noopener" data-reveal data-plx="-0.035">
+        <span class="pr-repo">langchain-ai/langchain</span>
+        <div>
+          <h3>Cut a stale duplicate block from the Groq structured-output docs<span class="arrow" aria-hidden="true">&#8599;</span></h3>
+          <p><code>ChatGroq.with_structured_output</code> documented its <code>method</code> argument twice, and the older block contradicted the current one &mdash; it omitted <code>json_schema</code> and the duplicate key broke API reference rendering. Removed it, kept its streaming caveat, added a unit test that catches a repeat.</p>
+          <p class="pr-meta"><span class="pr-state">Merged into master</span><span class="pr-num">PR #39978 &middot; Aug 2026</span></p>
+        </div>
+      </a>
     </div>
   </div>
 </section>
